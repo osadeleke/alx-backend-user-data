@@ -20,12 +20,13 @@ class Auth:
         for excluded_path in excluded_paths:
             if normalized_path == excluded_path.rstrip('/'):
                 return False
-
         return True
 
     def authorization_header(self, request=None) -> str:
         """authorization header method"""
-        return None
+        if not request or not request.authorization:
+            return None
+        return (request.authorization)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """current user method"""
