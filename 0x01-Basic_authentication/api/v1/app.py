@@ -17,8 +17,12 @@ auth = None
 auth = os.getenv('AUTH_TYPE')
 if auth:
     auth_module = importlib.import_module(f'api.v1.auth.auth')
-    Auth = getattr(auth_module, 'Auth')
-    auth = Auth()
+    if auth == 'auth':
+        Auth = getattr(auth_module, 'Auth')
+        auth = Auth()
+    elif auth == 'basic_auth':
+        BasicAuth = getattr(auth_module, 'BasicAuth')
+        auth = BasicAuth()
 
 
 @app.errorhandler(404)
