@@ -33,5 +33,3 @@ class Auth:
         return None
 
 
-class BasicAuth(Auth):
-    pass
