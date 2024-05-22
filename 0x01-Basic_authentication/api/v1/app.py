@@ -46,7 +46,7 @@ def forbidden_status(error) -> str:
 def auth_before_request():
     """handles before request"""
     if not auth:
-        return
+        pass
 
     epaths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth.require_auth(request.path, epaths) is True:
