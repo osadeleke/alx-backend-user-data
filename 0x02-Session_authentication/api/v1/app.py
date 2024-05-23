@@ -23,6 +23,9 @@ if auth:
     elif auth == 'basic_auth':
         BasicAuth = getattr(auth_module, 'BasicAuth')
         auth = BasicAuth()
+    elif auth == "session_auth":
+        SessionAuth = getattr(auth_module, 'SessionAuth')
+        auth = SessionAuth()
 
 
 @app.errorhandler(404)
