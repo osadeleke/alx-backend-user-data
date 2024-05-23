@@ -13,7 +13,7 @@ class BasicAuth(Auth):
     """
     def extract_base64_authorization_header(self, authorization_header: str) -> str:
         """
-        get base 64 
+        get base 64
         authorization header value
         """
         if not authorization_header:
