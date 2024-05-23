@@ -55,10 +55,18 @@ def auth_before_request():
     if not auth:
         pass
 
-    epaths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    epaths = [
+        '/api/v1/status/', '/api/v1/unauthorized/',
+        '/api/v1/forbidden/', '/api/v1/auth_session/login/'
+        ]
     if auth.require_auth(request.path, epaths) is True:
-        if auth.authorization_header(request) is None:
-            abort(401)
+        # if auth.authorization_header(request) is None:
+        #     abort(401)
+        # if auth.session_cookie(request) is None:
+        #     abort(401)
+        if not auth.session_cookie(request):
+            if not auth.authorization_header(request):
+                abort(401)
         if auth.current_user(request) is None:
             abort(403)
     request.current_user = auth.current_user(request)
