@@ -11,7 +11,7 @@ class BasicAuth(Auth):
     """
     class for basic authentication/authorization
     """
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(self, authorization_header: str) -> str:  # noqa E501
         """
         get base 64
         authorization header value
@@ -26,7 +26,7 @@ class BasicAuth(Auth):
         else:
             return None
 
-    def decode_base64_authorization_header(self, base_64_authorization_header: str) -> str:
+    def decode_base64_authorization_header(self, base_64_authorization_header: str) -> str:  # noqa E501
         """
         decode base 64
         authorization header
@@ -42,7 +42,7 @@ class BasicAuth(Auth):
         except base64.binascii.Error:
             return None
 
-    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
+    def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):  # noqa E501
         """
         get user credential
         from basic authorization
@@ -57,7 +57,7 @@ class BasicAuth(Auth):
         details = decoded_base64_authorization_header.split(':')
         return details[0], details[1]
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):  # noqa E501
         """
         returns the user instance based on
         his/her email and password
