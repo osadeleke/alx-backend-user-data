@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""basic authentication module"""
-from api.v1.auth.auth import Auth
+"""
+basic authentication module
+"""
 import base64
+from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
-    """class for basic authentication"""
+    """
+    class for basic authentication/authorization
+    """
     def extract_base64_authorization_header(self, authorization_header: str) -> str:
         """
         get base 64 authorization header value
@@ -21,7 +25,8 @@ class BasicAuth(Auth):
             return None
 
     def decode_base64_authorization_header(self, base_64_authorization_header: str) -> str:
-        """decode base 64 authorization header
+        """
+        decode base 64 authorization header
         """
         if not base_64_authorization_header:
             return None
@@ -36,7 +41,8 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):
         """
-        get user credential from basic authorization"""
+        get user credential from basic authorization
+        """
         if not decoded_base64_authorization_header:
             return None, None
         if not isinstance(decoded_base64_authorization_header, str):
@@ -48,7 +54,8 @@ class BasicAuth(Auth):
         return details[0], details[1]
 
     def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
-        """returns the user instance based on his/her email
+        """
+        returns the user instance based on his/her email
         and password
         """
         if not user_email or not isinstance(user_email, str):
