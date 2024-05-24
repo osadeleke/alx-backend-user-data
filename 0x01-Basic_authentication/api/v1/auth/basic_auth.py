@@ -40,7 +40,7 @@ class BasicAuth(Auth):
             decoded_bytes = base64.b64decode(base_64_authorization_header)
             decoded_string = decoded_bytes.decode('utf-8')
             return decoded_string
-        except base64.binascii.Error:
+        except Exception as e:
             return None
 
     def extract_user_credentials(self, decoded_base64_authorization_header: str) -> (str, str):  # noqa E501
@@ -55,7 +55,8 @@ class BasicAuth(Auth):
         if ":" not in decoded_base64_authorization_header:
             return None, None
 
-        details = decoded_base64_authorization_header.split(':')
+        details = decoded_base64_authorization_header.split(':', 1)
+
         return details[0], details[1]
 
     def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):  # noqa E501
