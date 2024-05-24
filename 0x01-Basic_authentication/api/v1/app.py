@@ -52,7 +52,7 @@ def auth_before_request():
     if not auth:
         pass
 
-    epaths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    epaths = ['/api/v1/stat*', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth.require_auth(request.path, epaths) is True:
         if auth.authorization_header(request) is None:
             abort(401)

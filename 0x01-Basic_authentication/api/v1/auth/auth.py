@@ -3,6 +3,7 @@
 """
 from flask import request
 from typing import List, TypeVar
+import fnmatch
 
 
 class Auth:
@@ -18,7 +19,8 @@ class Auth:
         normalized_path = path.rstrip('/')
 
         for excluded_path in excluded_paths:
-            if normalized_path == excluded_path.rstrip('/'):
+            # if normalized_path == excluded_path.rstrip('/'):
+            if fnmatch.fnmatch(normalized_path, excluded_path.rstrip('/')):
                 return False
         return True
 
