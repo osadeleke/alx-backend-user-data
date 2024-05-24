@@ -3,13 +3,13 @@
 Session authentication view
 """
 from api.v1.views import app_views
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, abort
 from models.user import User
 import os
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def session_login() -> str:
+def session_login():
     """
     Handle session login
     """
@@ -34,3 +34,15 @@ def session_login() -> str:
     cookie_name = os.getenv('SESSION_NAME')
     out.set_cookie(cookie_name, session_id)
     return out
+
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)  # noqa E501
+def session_logout():
+    """
+    Delete session
+    """
+    from api.v1.app import auth
+    session_val = auth.destroy_session(request)
+    if session_val is False:
+        abort(404)
+    return jsonify({}), 200
