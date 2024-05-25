@@ -23,6 +23,10 @@ if auth:
     elif auth == 'basic_auth':
         BasicAuth = getattr(auth_module, 'BasicAuth')
         auth = BasicAuth()
+else:
+    auth_module = importlib.import_module(f'api.v1.auth.auth')
+    Auth = getattr(auth_module, 'Auth')
+    auth = Auth()
 
 
 @app.errorhandler(404)
