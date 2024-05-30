@@ -18,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -40,9 +40,9 @@ class DB:
         """
         new_user = User(email=email, hashed_password=hashed_password)
         session = self._session
-        self.__session.add(new_user)
-        self.__session.commit()
-        self.__session.refresh(new_user)
+        session.add(new_user)
+        session.commit()
+        session.refresh(new_user)
         return new_user
 
     def find_user_by(self, **kwargs):
@@ -51,7 +51,7 @@ class DB:
         or invalid
         """
         try:
-            user = self.__session.query(User).filter_by(**kwargs).one()
+            user = self._session.query(User).filter_by(**kwargs).one()
             return user
         except NoResultFound:
             raise NoResultFound("Not found")
