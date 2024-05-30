@@ -51,10 +51,9 @@ class DB:
         or invalid
         """
         try:
-            user = self._session.query(User).filter_by(**kwargs).first()   
-        except InvalidRequestError:
+            user = self._session.query(User).filter_by(**kwargs).first()
+        except:
             raise InvalidRequestError
-        
         if not user:
             raise NoResultFound
         return user
