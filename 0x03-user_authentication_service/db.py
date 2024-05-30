@@ -52,7 +52,7 @@ class DB:
         """
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
-        except:
+        except Exception as e:
             raise InvalidRequestError
         if not user:
             raise NoResultFound
