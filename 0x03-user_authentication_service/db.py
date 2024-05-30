@@ -40,9 +40,9 @@ class DB:
         """
         new_user = User(email=email, hashed_password=hashed_password)
         session = self._session
-        session.add(new_user)
-        session.commit()
-        session.refresh(new_user)
+        self.__session.add(new_user)
+        self.__session.commit()
+        self.__session.refresh(new_user)
         return new_user
 
     def find_user_by(self, **kwargs):
