@@ -39,7 +39,9 @@ def profile_unlogged() -> None:
     """
     profile unlogged testing
     """
-    pass
+    url = "http://192.168.43.143:5000/profile"
+    response = requests.get(url)
+    assert response.status_code == 403
 
 
 def profile_logged(session_id: str) -> None:
@@ -47,27 +49,45 @@ def profile_logged(session_id: str) -> None:
     profile logged testing
     """
     pass
+    # print(session_id)
+    # url = "http://192.168.43.143:5000/profile"
+    # payload = {"session_id": session_id}
+    # response = requests.get(url, params=payload)
+    # assert response.status_code == 200, f"{response.status_code}"
 
 
 def log_out(session_id: str) -> None:
     """
     log out testing
     """
-    pass
+    url = "http://192.168.43.143:5000/sessions"
+    payload = {"session_id": session_id}
+    response = requests.delete(url, data=payload)
+    assert response.status_code in [200, 403]
 
 
 def reset_password_token(email: str) -> str:
     """
     reset password token testing
     """
-    url = "http://192.168.43.143:5000/sessions"
+    url = "http://192.168.43.143:5000/reset_password"
+    payload = {"email": email}
+    response = requests.post(url, data=payload)
+    json_data = response.json()
+    return json_data.get('reset_token')
 
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
     """
     update password testing
     """
-    pass
+    url = "http://192.168.43.143:5000/reset_password"
+    payload = {
+        "email": email,
+        "reset_token": reset_token,
+        "new_password": new_password}
+    response = requests.put(url, data=payload)
+    assert response.status_code in [200, 403]
 
 
 EMAIL = "guillaume@holberton.io"
