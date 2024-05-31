@@ -45,7 +45,7 @@ class DB:
         session.refresh(new_user)
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """
         find user and raise error if not found
         or invalid
