@@ -34,6 +34,9 @@ def users():
 
 @app.route("/sessions", methods=['POST'])
 def login():
+    """
+    login method
+    """
     email = request.form.get('email')
     password = request.form.get('password')
     if AUTH.valid_login(email, password):
@@ -51,6 +54,9 @@ def login():
 
 @app.route("/sessions", methods=['DELETE'])
 def logout():
+    """
+    logout method
+    """
     session_id = request.cookies.get('session_id')
     if session_id:
         user = AUTH.get_user_from_session_id(session_id)
